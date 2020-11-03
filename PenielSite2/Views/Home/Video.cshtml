@@ -1,0 +1,35 @@
+﻿@using Microsoft.Extensions.Localization
+@using PenielSite2.Localize
+
+@inject IStringLocalizer<Resource> _loc
+
+@model HomeModel
+@{
+    ViewData["Title"] = "Play Video";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!--https://embedsocial.com/knowledge-base/embed-youtube-feed/-->
+
+<div class="row">
+    <div class="col">
+    </div>
+    <div class="col">
+        @if (Model.videoId == null)
+        {
+            <p>This video is not available in this language</p>
+        }
+        else
+        {
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/@Model.videoId?rel=0"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+            </iframe>
+        }
+    </div>
+    <div class="col">
+
+    </div>
+</div>
+
+

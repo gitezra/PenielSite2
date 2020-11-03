@@ -1,8 +1,105 @@
-﻿@{
+﻿@using Microsoft.Extensions.Localization
+@using PenielSite2.Localize
+
+@inject IStringLocalizer<Resource> _loc
+
+@model HomeModel
+@{
     ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active" data-interval="4000">
+            <img src="img/Kinneret_01.jpg" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item" data-interval="4000">
+            <img src="img/Kinneret_02.jpg" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item" data-interval="4000">
+            <img src="img/Kinneret_03.jpg" class="d-block w-100" alt="...">
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
 </div>
+
+<table id="table_id" class="display">
+    <thead>
+        <tr>
+            <th>@_loc["Title"]</th>
+            <th>@_loc["Group"]</th>
+            <th>@_loc["Date"]</th>
+            <th>@_loc["Speaker"]</th>
+            <th>@_loc["Video"]</th>
+        </tr>
+    </thead>
+</table>
+
+<link rel="stylesheet" type="text/css" href="~/lib/datatables/css/jquery.dataTables.min.css">
+<script type="text/javascript" charset="utf8" src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="~/js/moment.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            'url': '/Home/getLastMessages',
+            'method': "GET",
+            'contentType': 'application/json',
+            data: {
+                    'lang' : '@Model.lang'
+                }
+        }).done(function (data) {
+            // data = { "data": data };
+            $('#table_id').dataTable({
+                searching: false, paging: false, info: false,
+                "aaData": data,
+                "columns": [
+                    { "data": "t" },
+                    { "data": "g" },
+                    {
+                      "data": "sd",
+                       render: function (data, type, row) {
+                          if (type === "sort" || type === "type") {
+                            return data;
+                          }
+                        //return moment(data).format("MM-DD-YYYY HH:mm");
+                           switch ('@Model.lang') {
+                               case 'en': return moment(data).format("MM-DD-YYYY");
+                                   break;
+                               case 'he':
+                               case 'ru':
+                               case 'es':
+                               case 'de': return moment(data).format("DD-MM-YYYY");
+                                   break;
+                               default: return moment(data).format("DD-MM-YYYY");
+                           }
+                       }
+                    },
+                    { "data": "sn" },
+                    {
+                        "data": "sid",
+                        "render": function (data, type, full) {
+                            var aa = '<a class="btn btn-info btn-sm" href="@(Url.Action("Video","Home",new { sermonId = "__data__", lang = Model.lang}))">' + '@_loc["View"]' + '</a>';
+                            return aa.replace('__data__', data); 
+                        }
+                    }
+                ],
+                "order": [[2, "desc"]]
+            })
+
+            if ('@Model.lang' == 'he') {
+                $('#table_id td').css('text-align', 'right');
+                $('#table_id th').css('text-align', 'right');
+            }
+
+        })
+    });
+</script>

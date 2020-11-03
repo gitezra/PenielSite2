@@ -1,0 +1,172 @@
+﻿@using Microsoft.Extensions.Localization
+@using PenielSite2.Localize
+
+@inject IStringLocalizer<Resource> _loc
+
+@model HomeModel
+@{
+    ViewData["Title"] = "Sermons";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .hebCol {
+        float: right;
+    }
+</style>
+
+<div id="params" >
+
+</div>
+
+<table id="table_id" class="display">
+    <thead>
+        <tr>
+            <th>@_loc["Title"]</th>
+            <th>@_loc["Group"]</th>
+            <th>@_loc["Date"]</th>
+            <th>@_loc["Speaker"]</th>
+            <th>@_loc["Video"]</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th>@_loc["Title"]</th>
+            <th>@_loc["Group"]</th>
+            <th>@_loc["Date"]</th>
+            <th>@_loc["Speaker"]</th>
+            <th></th>
+        </tr>
+    </tfoot>
+</table>
+
+<link rel="stylesheet" type="text/css" href="~/lib/datatables/css/jquery.dataTables.min.css">
+<script type="text/javascript" charset="utf8" src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="~/js/moment.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+        var idx = 0;
+        $('#table_id tfoot th').each(function () {
+            var title = $(this).text();
+            if (idx == 0 || idx == 2) {
+                $(this).html('<input type="text" class="form-control" placeholder="@_loc["Search"] ' + title + '" />');
+            }
+            idx++;
+        });
+
+        $.ajax({
+            'url': '/Home/getSermons',
+            'method': "GET",
+            'contentType': 'application/json',
+            data: {
+                'lang': '@Model.lang',
+                'groupId': 0,
+                sermonType: 'All',
+                fromDate: '1980/01/01',
+                toDate: '2099/12/31'
+                }
+        }).done(function (data) {
+            // data = { "data": data };
+            $('#table_id').dataTable({
+                searching: true, paging: true, info: true,
+                language: {
+                    url: "@(Model.lang == "de" ? "https://cdn.datatables.net/plug-ins/1.10.21/i18n/German.json" :
+                           (Model.lang == "he" ? "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Hebrew.json" :
+                           (Model.lang == "es" ? "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json" :
+                           (Model.lang == "ru" ? "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Russian.json" : ""))))"
+                },
+                initComplete: function () {
+                    //http://yadcf-showcase.appspot.com/
+                    //https://www.datatables.net/examples/api/multi_filter_select.html
+
+                    //put the searchboxes on top instead of in the footer
+                    var r = $('#table_id tfoot tr');
+                    r.find('th').each(function () {
+                        $(this).css('padding', 8);
+                    });
+                    $('#table_id thead').append(r);
+                    $('#search_0').css('text-align', 'center');
+
+
+                    this.api().columns().every(function () {
+                        var column = this;
+
+                        if (column.index() == 0 || column.index() == 2) {
+                            //input boxes
+                            var that = this;
+
+                            $('input', this.footer()).on('keyup change clear', function () {
+                                if (that.search() !== this.value) {
+                                    that
+                                        .search(this.value)
+                                        .draw();
+                                }
+                            });
+                        }
+                        else if (column.index() == 1 || column.index() == 3)
+                        {
+                            //put combo boxes
+                            var select = $('<select class="form-control"><option value=""></option></select>')
+                                .appendTo($(column.footer()).empty())
+                                .on('change', function () {
+                                    var val = $.fn.dataTable.util.escapeRegex(
+                                        $(this).val()
+                                    );
+
+                                    column
+                                        .search(val ? '^' + val + '$' : '', true, false)
+                                        .draw();
+                                });
+
+                            column.data().unique().sort().each(function (d, j) {
+                                select.append('<option value="' + d + '">' + d + '</option>')
+                            });
+                        }
+                    });
+
+                },
+                "drawCallback": function (settings) {
+                    //alert('DataTables has redrawn the table');
+                    if ('@Model.lang' == 'he') {
+                        $('#table_id td').css('text-align', 'right');
+                        $('#table_id th').css('text-align', 'right');
+                    }
+                },
+                "aaData": data,
+                "columns": [
+                    { "data": "t" },
+                    { "data": "g" },
+                    { "data": "sd",
+                       render: function (data, type, row) {
+                            if (type === "sort" || type === "type") {
+                                return data;
+                            }
+                            //return moment(data).format("MM-DD-YYYY HH:mm");
+                            switch ('@Model.lang') {
+                                case 'en': return moment(data).format("MM-DD-YYYY");
+                                    break;
+                                case 'he':
+                                case 'ru':
+                                case 'es':
+                                case 'de': return moment(data).format("DD-MM-YYYY");
+                                    break;
+                                default: return moment(data).format("DD-MM-YYYY");
+                            }
+                        }
+                    },
+                    { "data": "sn" },
+                    { "data": "sid",
+                        "render": function (data, type, full) {
+                            var aa = '<a class="btn btn-info btn-sm" href="@(Url.Action("Video","Home",new { sermonId = "__data__", lang = Model.lang}))">' + '@_loc["View"]' + '</a>';
+                            return aa.replace('__data__', data);
+                        }
+                    }
+                ],
+                "order": [[2, "desc"]]
+            })
+        })
+
+    });
+</script>

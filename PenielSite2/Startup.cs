@@ -12,6 +12,10 @@ using PenielSite2.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Localization.Routing;
+using Microsoft.Extensions.Options;
 
 namespace PenielSite2
 {
@@ -27,6 +31,26 @@ namespace PenielSite2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //localization
+            //taken from https://github.com/RaguMP/Samples
+
+            services.AddLocalization();
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new List<CultureInfo>
+                {
+                    new CultureInfo("en"),
+                    new CultureInfo("he"),
+                    new CultureInfo("es"),
+                    new CultureInfo("ru"),
+                    new CultureInfo("de")
+                };
+                options.DefaultRequestCulture = new RequestCulture(culture: "en", uiCulture: "en");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+                options.RequestCultureProviders = new[] { new RouteDataRequestCultureProvider { } };
+            });
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -34,6 +58,7 @@ namespace PenielSite2
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +76,11 @@ namespace PenielSite2
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+
+            //localization
+            var localizeOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            app.UseRequestLocalization(localizeOptions.Value);
+
             app.UseStaticFiles();
 
             app.UseRouting();
