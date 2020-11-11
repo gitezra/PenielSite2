@@ -16,5 +16,7 @@ namespace PenielSite2.Models
         public DateTime? sermonDate { get; set; }
         public string speakerName { get; set; }
         public int idx { get; set; }
+        public string img { get; set; } //path to image of Article
+        public int row_num { get; set; }
     }
 }

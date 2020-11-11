@@ -13,6 +13,10 @@
     .hebCol {
         float: right;
     }
+    .my_class {
+        overflow: hidden;
+        width: 65px;
+    }
 </style>
 
 <div id="params" >
@@ -80,6 +84,7 @@
                 initComplete: function () {
                     //http://yadcf-showcase.appspot.com/
                     //https://www.datatables.net/examples/api/multi_filter_select.html
+                    //https://www.tutorialspoint.com/jquery/jquery-dom.htm
 
                     //put the searchboxes on top instead of in the footer
                     var r = $('#table_id tfoot tr');
@@ -154,7 +159,8 @@
                                     break;
                                 default: return moment(data).format("DD-MM-YYYY");
                             }
-                        }
+                        },
+                        "sClass": "my_class" 
                     },
                     { "data": "sn" },
                     { "data": "sid",

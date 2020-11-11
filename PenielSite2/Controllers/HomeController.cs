@@ -72,6 +72,63 @@ namespace PenielSite2.Controllers
             return View(h);
         }
 
+        [HttpGet]
+        public IActionResult Articles(string lang)
+        {
+            HomeModel h = new HomeModel();
+            h.action = "Articles";
+
+            h.sermons = getArticles(lang);
+            System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo(lang);
+            System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(lang);
+
+            return View(h);
+        }
+
+        [HttpGet]
+        public List<SermonModel> getArticles(string lang)
+        {
+            if (lang == null) lang = "en";
+            string connectionString = _config.GetConnectionString("DefaultSQLConnection");
+            string cmdString = "exec getSermons @lang,@groupId,@sermonType,@fromDate,@toDate";
+
+            List<SermonModel> lst = new List<SermonModel>();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(cmdString, connection);
+                //command.Parameters.AddWithValue("lang", lang);
+                command.Parameters.Add("@lang", SqlDbType.NVarChar, 2).Value = lang;
+                command.Parameters.Add("@groupId", SqlDbType.Int).Value = 0;
+                command.Parameters.Add("@sermonType", SqlDbType.NVarChar, 10).Value = "A"; //Articles
+                command.Parameters.Add("@fromDate", SqlDbType.Date).Value = "1980/01/01";
+                command.Parameters.Add("@toDate", SqlDbType.Date).Value = "2099/12/31";
+
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        SermonModel s = new SermonModel();
+                        //Console.WriteLine(String.Format("{0}, {1}", reader[0], reader[1]));
+                        s.sermonId = Convert.ToInt32(reader["sermonId"]);
+                        s.title = reader["title"].ToString();
+                        s.language = reader["language"].ToString();
+                        //s.videoId = reader["videoId"].ToString();
+                        s.groups = reader["groups"].ToString();
+                        s.sermonDate = Convert.ToDateTime(reader["sermonDate"] is DBNull ? null : reader["sermonDate"]);
+                        s.speakerName = reader["speakerName"].ToString();
+                        s.img = reader["img"].ToString();
+                        s.row_num = Convert.ToInt32(reader["row_num"]);
+
+                        lst.Add(s);
+                    }
+                }
+                connection.Close();
+            }
+
+            return lst;
+        }
 
         public string getVideoIdOfLanguage(int sermonId, string lang)
         {
