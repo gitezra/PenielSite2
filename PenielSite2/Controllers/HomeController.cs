@@ -86,6 +86,41 @@ namespace PenielSite2.Controllers
         }
 
         [HttpGet]
+        public IActionResult Article(int sermonId, string lang)
+        {
+            HomeModel h = new HomeModel();
+            h.action = "Article";
+
+            //get article title, Speakername and reading_html from the datatabase
+            string connectionString = _config.GetConnectionString("DefaultSQLConnection");
+            string cmdString = "exec getArticle @sermonId,@language";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(cmdString, connection);
+                //command.Parameters.AddWithValue("lang", lang);
+                command.Parameters.Add("@sermonId", SqlDbType.Int).Value = sermonId;
+                command.Parameters.Add("@language", SqlDbType.NVarChar,2).Value = lang;
+
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        h.sermonTitle = reader["Title"].ToString();
+                        h.speakerName = reader["SpeakerName"].ToString();
+                        h.reading_html = reader["reading_html"].ToString();
+                    }
+                }
+                connection.Close();
+            }
+            System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo(lang);
+            System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(lang);
+
+            return View(h);
+        }
+
+        [HttpGet]
         public List<SermonModel> getArticles(string lang)
         {
             if (lang == null) lang = "en";
@@ -120,6 +155,7 @@ namespace PenielSite2.Controllers
                         s.speakerName = reader["speakerName"].ToString();
                         s.img = reader["img"].ToString();
                         s.row_num = Convert.ToInt32(reader["row_num"]);
+                        s.opening = reader["Opening"].ToString();
 
                         lst.Add(s);
                     }
@@ -149,7 +185,7 @@ namespace PenielSite2.Controllers
             }
         }
             //[HttpGet]
-            public List<SermonModel> getAllSermonsInGroupsOfaSermon(int sermonId, string lang)
+        public List<SermonModel> getAllSermonsInGroupsOfaSermon(int sermonId, string lang)
         {
             if (lang == null) lang = "en";
             string connectionString = _config.GetConnectionString("DefaultSQLConnection");

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PenielSite2", "PenielSite2\PenielSite2.csproj", "{81AA3A99-E1DA-48B8-98B8-96F7CB6063AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PenielSite2", "PenielSite2\PenielSite2.csproj", "{81AA3A99-E1DA-48B8-98B8-96F7CB6063AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,4 +1,8 @@
-﻿
+﻿@using Microsoft.Extensions.Localization
+@using PenielSite2.Localize
+
+@inject IStringLocalizer<Resource> _loc
+
 @model HomeModel
 
 @{
@@ -7,8 +11,13 @@
 }
 
 <style>
-    .row-margin-05 { margin-top: 0.5em; }
-    .row-margin-10 { margin-top: 1.0em; }
+    .row-margin-05 {
+        margin-top: 0.5em;
+    }
+
+    .row-margin-10 {
+        margin-top: 1.0em;
+    }
 </style>
 
 @foreach (var sermon in Model.sermons)
@@ -20,7 +29,7 @@
     }
     <div class="col-sm-4">
         <!-- Card -->
-        <div class="card">
+        <div class="card h-100">
 
             <!-- Card image -->
             <img class="card-img-top" src="@(sermon.img)" alt="Card image cap">
@@ -30,13 +39,13 @@
 
                 <!-- Title -->
                 <h4 class="card-title"><a>@(sermon.title)</a></h4>
+                <h6>@_loc["by"] @(sermon.speakerName)</h6>
                 <!-- Text -->
                 <p class="card-text">
-                    Some quick example text to build on the card title and make up the bulk of the card's
-                    content.
+                    @Html.Raw(sermon.opening)...
                 </p>
                 <!-- Button -->
-                <a href="#" class="btn btn-primary">Button</a>
+                <a href="@(Url.Action("Article","Home",new { sermonId = sermon.sermonId, lang = sermon.language}))" class="btn btn-primary">@_loc["Read"]</a>
 
             </div>
 

@@ -18,5 +18,6 @@ namespace PenielSite2.Models
         public int idx { get; set; }
         public string img { get; set; } //path to image of Article
         public int row_num { get; set; }
+        public string opening { get; set; } //Predigt Vorspann
     }
 }
