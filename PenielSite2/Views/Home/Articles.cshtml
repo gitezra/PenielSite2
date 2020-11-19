@@ -20,42 +20,44 @@
     }
 </style>
 
-@foreach (var sermon in Model.sermons)
-{
-
-    if ((sermon.row_num % 3) == 1)
+<div class="bg-light">
+    @foreach (var sermon in Model.sermons)
     {
-        @Html.Raw("<div class=\"row row-margin-10\">");
-    }
-    <div class="col-sm-4">
-        <!-- Card -->
-        <div class="card h-100">
 
-            <!-- Card image -->
-            <img class="card-img-top" src="@(sermon.img)" alt="Card image cap">
+        if ((sermon.row_num % 3) == 1)
+        {
+            @Html.Raw("<div class=\"row row-margin-10\">");
+        }
+        <div class="col-sm-4">
+            <!-- Card -->
+            <div class="card h-100">
 
-            <!-- Card content -->
-            <div class="card-body">
+                <!-- Card image -->
+                <img class="card-img-top" src="@(sermon.img)" alt="Card image cap">
 
-                <!-- Title -->
-                <h4 class="card-title"><a>@(sermon.title)</a></h4>
-                <h6>@_loc["by"] @(sermon.speakerName)</h6>
-                <!-- Text -->
-                <p class="card-text">
-                    @Html.Raw(sermon.opening)...
-                </p>
-                <!-- Button -->
-                <a href="@(Url.Action("Article","Home",new { sermonId = sermon.sermonId, lang = sermon.language}))" class="btn btn-primary">@_loc["Read"]</a>
+                <!-- Card content -->
+                <div class="card-body">
+
+                    <!-- Title -->
+                    <h4 class="card-title"><a>@(sermon.title)</a></h4>
+                    <h6>@_loc["by"] @(sermon.speakerName)</h6>
+                    <!-- Text -->
+                    <p class="card-text">
+                        @Html.Raw(sermon.opening)...
+                    </p>
+                    <!-- Button -->
+                    <a href="@(Url.Action("Article","Home",new { sermonId = sermon.sermonId, lang = sermon.language}))" class="btn btn-primary">@_loc["Read"]</a>
+
+                </div>
 
             </div>
-
+            <!-- Card -->
         </div>
-        <!-- Card -->
-    </div>
-    if (@sermon.row_num % 3 == 0)
-    {
-        @Html.Raw("</div>");
+        if (@sermon.row_num % 3 == 0)
+        {
+            @Html.Raw("</div>");
+        }
     }
-}
+</div>
 
 

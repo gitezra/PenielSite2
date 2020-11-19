@@ -43,7 +43,12 @@ namespace PenielSite2
                     new CultureInfo("he"),
                     new CultureInfo("es"),
                     new CultureInfo("ru"),
-                    new CultureInfo("de")
+                    new CultureInfo("de"),
+                    new CultureInfo("fr"),
+                    new CultureInfo("fi"),
+                    new CultureInfo("it"),
+                    new CultureInfo("zh"),//chinese according ISO
+                    new CultureInfo("pt")
                 };
                 options.DefaultRequestCulture = new RequestCulture(culture: "en", uiCulture: "en");
                 options.SupportedCultures = supportedCultures;

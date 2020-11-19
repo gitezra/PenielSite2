@@ -1,11 +1,17 @@
-﻿@model HomeModel
+﻿@using Microsoft.Extensions.Localization
+@using PenielSite2.Localize
+
+@inject IStringLocalizer<Resource> _loc
+@model HomeModel
 
 @{
     ViewData["Title"] = "Article";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>@Model.sermonTitle</h1>
-<h5 align="center">@Model.speakerName</h5>
+<div class="bg-light">
+    <h1>@Model.sermonTitle</h1>
+    <h5>@_loc["by"] @Model.speakerName</h5>
 
-@Html.Raw(Model.reading_html)
+    @Html.Raw(Model.reading_html)
+</div>

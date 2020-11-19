@@ -5,6 +5,13 @@
 @inject IStringLocalizer<Resource> _loc
 
 <!DOCTYPE html>
+
+<style>
+    p, H1, H2, H3, H4,h5,H6 {
+        color: #04528e
+    }
+</style>
+
 <html lang="en" dir="@((CultureInfo.CurrentUICulture.ToString() == "he") ? "rtl" : "ltr")">
 <head>
     <meta charset="utf-8" />
@@ -22,6 +29,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 </head>
+
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -52,6 +60,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Donate" asp-route-lang="@CultureInfo.CurrentUICulture">@_loc["Donate"]</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About" asp-route-lang="@CultureInfo.CurrentUICulture">@_loc["About"]</a>
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -64,6 +75,11 @@
                                 <a class="dropdown-item" asp-controller="Home" asp-action="@Model.action" asp-route-sermonId="@Model.sermonId" asp-route-lang="ru"><img src="~/img/ru.jpg" alt="..." width="25"></a>
                                 <a class="dropdown-item" asp-controller="Home" asp-action="@Model.action" asp-route-sermonId="@Model.sermonId" asp-route-lang="de"><img src="~/img/de.jpg" alt="..." width="25"></a>
                                 <a class="dropdown-item" asp-controller="Home" asp-action="@Model.action" asp-route-sermonId="@Model.sermonId" asp-route-lang="es"><img src="~/img/es.jpg" alt="..." width="25"></a>
+                                <a class="dropdown-item" asp-controller="Home" asp-action="@Model.action" asp-route-sermonId="@Model.sermonId" asp-route-lang="fi"><img src="~/img/fi.jpg" alt="..." width="25"></a>
+                                <a class="dropdown-item" asp-controller="Home" asp-action="@Model.action" asp-route-sermonId="@Model.sermonId" asp-route-lang="fr"><img src="~/img/fr.jpg" alt="..." width="25"></a>
+                                <a class="dropdown-item" asp-controller="Home" asp-action="@Model.action" asp-route-sermonId="@Model.sermonId" asp-route-lang="zh"><img src="~/img/zh.jpg" alt="..." width="25"></a>
+                                <a class="dropdown-item" asp-controller="Home" asp-action="@Model.action" asp-route-sermonId="@Model.sermonId" asp-route-lang="it"><img src="~/img/it.jpg" alt="..." width="25"></a>
+                                <a class="dropdown-item" asp-controller="Home" asp-action="@Model.action" asp-route-sermonId="@Model.sermonId" asp-route-lang="pt"><img src="~/img/pt.jpg" alt="..." width="25"></a>
                             </div>
                         </li>
                     </ul>
@@ -71,6 +87,7 @@
             </div>
         </nav>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()

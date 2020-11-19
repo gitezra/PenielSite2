@@ -60,6 +60,19 @@ namespace PenielSite2.Controllers
         }
 
         [HttpGet]
+        public IActionResult About(string lang)
+        {
+            HomeModel h = new HomeModel();
+            h.action = "About";
+            h.lang = lang;
+
+            System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo(lang);
+            System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(lang);
+
+            return View(h);
+        }
+
+        [HttpGet]
         public IActionResult Sermons(string lang)
         {
             HomeModel h = new HomeModel();
