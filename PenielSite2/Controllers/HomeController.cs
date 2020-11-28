@@ -12,6 +12,8 @@ using System.Data;
 using Microsoft.Extensions.Localization;
 using PenielSite2.Localize;
 using System.Globalization;
+using System.Net.Mail;
+using System.Net;
 
 namespace PenielSite2.Controllers
 {
@@ -70,6 +72,41 @@ namespace PenielSite2.Controllers
             System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(lang);
 
             return View(h);
+        }
+
+        [HttpGet]
+        public IActionResult Contact(string lang)
+        {
+            ContactFormModel h = new ContactFormModel();
+            h.action = "Contact";
+            h.lang = lang;
+
+            System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo(lang);
+            System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(lang);
+
+            return View(h);
+        }
+
+        [HttpPost]
+        public IActionResult Contact(ContactFormModel frm)
+        {
+            using (var message = new MailMessage(frm.email, "xxx@gmail.com"))
+            {
+                message.To.Add(new MailAddress("xxx@gmail.com"));
+                message.From = new MailAddress(frm.email);
+                message.Subject = frm.subject;
+                message.Body = frm.message;
+                
+                System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+
+                using (var smtpClient = new SmtpClient("smtp.gmail.com", 587))
+                {
+                    smtpClient.EnableSsl = true;
+                    smtpClient.Credentials = new System.Net.NetworkCredential("xxx@gmail.com", "password");
+                    smtpClient.Send(message);
+                }
+            }
+            return RedirectToAction("Index", new { lang = frm.lang });
         }
 
         [HttpGet]

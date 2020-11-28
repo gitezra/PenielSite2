@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="A Ministry of &quot;Tsur Haim&quot;" xml:space="preserve">
+    <value>עמותת צור חיים</value>
+  </data>
+  <data name="An Israeli non-profit organization" xml:space="preserve">
+    <value>מלכ"ר (מוסד ללא כוונות רווח)</value>
+  </data>
   <data name="Articles" xml:space="preserve">
     <value>לקריאה</value>
   </data>
@@ -126,17 +132,32 @@
   <data name="Contact" xml:space="preserve">
     <value>צור קשר</value>
   </data>
+  <data name="Contact us" xml:space="preserve">
+    <value>צור קשר</value>
+  </data>
   <data name="Date" xml:space="preserve">
     <value>תאריך</value>
   </data>
   <data name="Donate" xml:space="preserve">
     <value>תרומה</value>
   </data>
+  <data name="E-mail" xml:space="preserve">
+    <value>אימייל</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>אימייל</value>
+  </data>
   <data name="Group" xml:space="preserve">
     <value>קבוצה</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value>בית</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>שם מלא</value>
+  </data>
+  <data name="P.O.Box 620, HaMasor Street 15" xml:space="preserve">
+    <value>ת.ד. 620 רחוב המסור 15</value>
   </data>
   <data name="Peniel Fellowship" xml:space="preserve">
     <value>קהילת פניאל</value>
@@ -147,16 +168,31 @@
   <data name="Search" xml:space="preserve">
     <value>חפש</value>
   </data>
+  <data name="Send" xml:space="preserve">
+    <value>שלח</value>
+  </data>
   <data name="Sermons" xml:space="preserve">
     <value>מסרים</value>
   </data>
   <data name="Speaker" xml:space="preserve">
     <value>דובר</value>
   </data>
+  <data name="Subject" xml:space="preserve">
+    <value>נושא</value>
+  </data>
+  <data name="Telefax" xml:space="preserve">
+    <value>טלפקס</value>
+  </data>
+  <data name="Tiberias 14107 Israel" xml:space="preserve">
+    <value>טבריה 14107</value>
+  </data>
   <data name="Title" xml:space="preserve">
     <value>נושא</value>
   </data>
   <data name="Video" xml:space="preserve">
     <value>וידאו</value>
+  </data>
+  <data name="Your Message" xml:space="preserve">
+    <value>תוכן הודעה</value>
   </data>
 </root>

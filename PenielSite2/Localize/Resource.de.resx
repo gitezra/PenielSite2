@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="A Ministry of &quot;Tsur Haim&quot;" xml:space="preserve">
+    <value>Ein Dienst von "Tsur Haim"</value>
+  </data>
+  <data name="An Israeli non-profit organization" xml:space="preserve">
+    <value>eine israelische non-profit  Organisation</value>
+  </data>
   <data name="Articles" xml:space="preserve">
     <value>Artikel</value>
   </data>
@@ -126,17 +132,32 @@
   <data name="Contact" xml:space="preserve">
     <value>Kontakt</value>
   </data>
+  <data name="Contact us" xml:space="preserve">
+    <value>Kontaktieren Sie uns</value>
+  </data>
   <data name="Date" xml:space="preserve">
     <value>Datum</value>
   </data>
   <data name="Donate" xml:space="preserve">
     <value>Spenden</value>
   </data>
+  <data name="E-mail" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
   <data name="Group" xml:space="preserve">
     <value>Gruppe</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value>Startseite</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="P.O.Box 620, HaMasor Street 15" xml:space="preserve">
+    <value>P.O.Box 620, HaMasor Street 15</value>
   </data>
   <data name="Peniel Fellowship" xml:space="preserve">
     <value>Peniel Gemeinde</value>
@@ -147,16 +168,31 @@
   <data name="Search" xml:space="preserve">
     <value>Suche</value>
   </data>
+  <data name="Send" xml:space="preserve">
+    <value>Send</value>
+  </data>
   <data name="Sermons" xml:space="preserve">
     <value>Predigten</value>
   </data>
   <data name="Speaker" xml:space="preserve">
     <value>Redner</value>
   </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Subject</value>
+  </data>
+  <data name="Telefax" xml:space="preserve">
+    <value>Telefax</value>
+  </data>
+  <data name="Tiberias 14107 Israel" xml:space="preserve">
+    <value>Tiberias 14107 Israel</value>
+  </data>
   <data name="Title" xml:space="preserve">
     <value>Titel</value>
   </data>
   <data name="Video" xml:space="preserve">
     <value>Video</value>
+  </data>
+  <data name="Your Message" xml:space="preserve">
+    <value>Message</value>
   </data>
 </root>
