@@ -37,6 +37,8 @@ namespace PenielSite2.Controllers
             HomeModel h = new HomeModel();
             h.lang = lang;
             h.action = "Index";
+            
+            if (lang=="en" ) h.sermons = getPlayList(1,lang); //playlist of biblical feasts for english page only
             //set the current chosen language
             System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo(lang);
             System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(lang);
@@ -47,6 +49,7 @@ namespace PenielSite2.Controllers
         [HttpGet]
         public IActionResult Video(int sermonId, string lang)
         {
+            if (lang == null) lang = "en";
             HomeModel h = new HomeModel();
             h.action = "Video";
 
@@ -54,7 +57,7 @@ namespace PenielSite2.Controllers
             //get the sermon in the correct language if available
             h.videoId = getVideoIdOfLanguage(sermonId,lang);
 
-            h.sermons = getAllSermonsInGroupsOfaSermon(sermonId, lang);
+            //h.sermons = getAllSermonsInGroupsOfaSermon(sermonId, lang);
             System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo(lang);
             System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(lang);
 
@@ -64,6 +67,7 @@ namespace PenielSite2.Controllers
         [HttpGet]
         public IActionResult About(string lang)
         {
+            if (lang == null) lang = "en";
             HomeModel h = new HomeModel();
             h.action = "About";
             h.lang = lang;
@@ -77,8 +81,23 @@ namespace PenielSite2.Controllers
         [HttpGet]
         public IActionResult Contact(string lang)
         {
+            if (lang == null) lang = "en";
             ContactFormModel h = new ContactFormModel();
             h.action = "Contact";
+            h.lang = lang;
+
+            System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo(lang);
+            System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(lang);
+
+            return View(h);
+        }
+
+        [HttpGet]
+        public IActionResult Donate(string lang)
+        {
+            if (lang == null) lang = "en";
+            HomeModel h = new HomeModel();
+            h.action = "Donate";
             h.lang = lang;
 
             System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo(lang);
@@ -112,6 +131,7 @@ namespace PenielSite2.Controllers
         [HttpGet]
         public IActionResult Sermons(string lang)
         {
+            if (lang == null) lang = "en";
             HomeModel h = new HomeModel();
             h.action = "Sermons";
             h.lang = lang;
@@ -125,6 +145,7 @@ namespace PenielSite2.Controllers
         [HttpGet]
         public IActionResult Articles(string lang)
         {
+            if (lang == null) lang = "en";
             HomeModel h = new HomeModel();
             h.action = "Articles";
 
@@ -215,6 +236,50 @@ namespace PenielSite2.Controllers
 
             return lst;
         }
+
+        [HttpGet]
+        public List<SermonModel> getPlayList(int playListID, string lang)
+        {
+            string connectionString = _config.GetConnectionString("DefaultSQLConnection");
+            string cmdString = "exec getPlayList @playListID, @lang";
+
+            List<SermonModel> lst = new List<SermonModel>();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(cmdString, connection);
+                //command.Parameters.AddWithValue("lang", lang);
+                command.Parameters.Add("@playListID", SqlDbType.Int).Value = playListID;
+                command.Parameters.Add("@lang", SqlDbType.NVarChar, 2).Value = lang;
+
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        SermonModel s = new SermonModel();
+                        //Console.WriteLine(String.Format("{0}, {1}", reader[0], reader[1]));
+                        s.playListName = reader["playListName"].ToString();
+                        s.title = reader["sermonTitle"].ToString();
+                        s.sermonId = Convert.ToInt32(reader["sermonId"]);
+                        s.language = reader["language"].ToString();
+                        //s.videoId = reader["VideoId"].ToString();
+                        //s.groups = reader["groups"].ToString();
+                        //s.sermonDate = Convert.ToDateTime(reader["sermonDate"] is DBNull ? null : reader["sermonDate"]);
+                        //s.speakerName = reader["speakerName"].ToString();
+                        s.img = reader["img"].ToString();
+                        s.row_num = Convert.ToInt32(reader["idx"]);
+                        //s.opening = reader["Opening"].ToString();
+
+                        lst.Add(s);
+                    }
+                }
+                connection.Close();
+            }
+
+            return lst;
+        }
+
 
         public string getVideoIdOfLanguage(int sermonId, string lang)
         {

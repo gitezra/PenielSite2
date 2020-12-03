@@ -120,6 +120,9 @@
   <data name="A Ministry of &quot;Tsur Haim&quot;" xml:space="preserve">
     <value>עמותת צור חיים</value>
   </data>
+  <data name="About" xml:space="preserve">
+    <value>עלינו</value>
+  </data>
   <data name="An Israeli non-profit organization" xml:space="preserve">
     <value>מלכ"ר (מוסד ללא כוונות רווח)</value>
   </data>
@@ -128,6 +131,9 @@
   </data>
   <data name="by" xml:space="preserve">
     <value />
+  </data>
+  <data name="click here" xml:space="preserve">
+    <value>הקלק כאן</value>
   </data>
   <data name="Contact" xml:space="preserve">
     <value>צור קשר</value>
@@ -149,6 +155,9 @@
   </data>
   <data name="Group" xml:space="preserve">
     <value>קבוצה</value>
+  </data>
+  <data name="Here a list of the last seven messages, if you want to see all messages available" xml:space="preserve">
+    <value>להלן רשימה של שבעת המסרים האחרונים, אם את/ה רוצה ליראות את כל המסרים הזמינים</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value>בית</value>

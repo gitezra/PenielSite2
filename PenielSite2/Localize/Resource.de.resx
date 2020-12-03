@@ -120,6 +120,9 @@
   <data name="A Ministry of &quot;Tsur Haim&quot;" xml:space="preserve">
     <value>Ein Dienst von "Tsur Haim"</value>
   </data>
+  <data name="About" xml:space="preserve">
+    <value>Über uns</value>
+  </data>
   <data name="An Israeli non-profit organization" xml:space="preserve">
     <value>eine israelische non-profit  Organisation</value>
   </data>
@@ -128,6 +131,9 @@
   </data>
   <data name="by" xml:space="preserve">
     <value>von</value>
+  </data>
+  <data name="click here" xml:space="preserve">
+    <value>hier anklicken</value>
   </data>
   <data name="Contact" xml:space="preserve">
     <value>Kontakt</value>
@@ -149,6 +155,9 @@
   </data>
   <data name="Group" xml:space="preserve">
     <value>Gruppe</value>
+  </data>
+  <data name="Here a list of the last seven messages, if you want to see all messages available" xml:space="preserve">
+    <value>Hier eine Liste der letzten sieben Predigten, wenn Sie alle vorhandenen Predigten sehen wollen dann</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value>Startseite</value>

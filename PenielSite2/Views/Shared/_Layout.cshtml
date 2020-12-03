@@ -10,6 +10,8 @@
     p, H1, H2, H3, H4,h5,H6 {
         color: #04528e
     }
+    body { padding-top: 62px;} /*fixed-top nav needs this space*/
+
 </style>
 
 <html lang="en" dir="@((CultureInfo.CurrentUICulture.ToString() == "he") ? "rtl" : "ltr")">
@@ -32,7 +34,7 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 fixed-top">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                     <img src="~/peniel_icon.jpg" width="30" height="30" class="rounded-circle" alt="" loading="lazy">
