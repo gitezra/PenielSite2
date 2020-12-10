@@ -56,6 +56,7 @@ namespace PenielSite2.Controllers
             h.sermonId = sermonId;
             //get the sermon in the correct language if available
             h.videoId = getVideoIdOfLanguage(sermonId,lang);
+            h.files = getSermonFiles(sermonId,lang);
 
             //h.sermons = getAllSermonsInGroupsOfaSermon(sermonId, lang);
             System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo(lang);
@@ -234,6 +235,40 @@ namespace PenielSite2.Controllers
                 connection.Close();
             }
 
+            return lst;
+        }
+
+        [HttpGet]
+        public List<FileModel> getSermonFiles(int sermonId, string lang)
+        {
+            if (lang == null) lang = "en";
+            string connectionString = _config.GetConnectionString("DefaultSQLConnection");
+            string cmdString = "exec getSermonFiles @sermonId, @lang";
+
+            List<FileModel> lst = new List<FileModel>();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(cmdString, connection);
+                //command.Parameters.AddWithValue("lang", lang);
+                command.Parameters.Add("@sermonId", SqlDbType.Int).Value = sermonId;
+                command.Parameters.Add("@lang", SqlDbType.NVarChar, 2).Value = lang;
+
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        FileModel s = new FileModel();
+                        //Console.WriteLine(String.Format("{0}, {1}", reader[0], reader[1]));
+                        s.title = reader["title"].ToString();
+                        s.mp3File = reader["mp3File"].ToString();
+
+                        lst.Add(s);
+                    }
+                }
+                connection.Close();
+            }
             return lst;
         }
 

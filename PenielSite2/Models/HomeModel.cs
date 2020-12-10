@@ -12,6 +12,7 @@ namespace PenielSite2.Models
         public int sermonId { get; set; }
         public string videoId { get; set; }
         public List<SermonModel> sermons { get; set; }
+        public List<FileModel> files { get; set; }
         public string action { get; set; }
         public string reading_html { get; set; }
         public string speakerName { get; set; }

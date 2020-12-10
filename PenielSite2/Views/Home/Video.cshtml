@@ -31,5 +31,24 @@
 
     </div>
 </div>
-
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col"> </th>
+            <th style="text-align: center; width: 75%;" scope="col">File Name</th>
+            <th style="text-align: center;" scope="col">Play</th>
+            <th scope="col"> </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var file in Model.files)
+        {
+            <tr>
+                <th scope="row"></th>
+                <td>@file.title</td>
+                <td><a href="..\@file.mp3File">.mp3</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
 
