@@ -1,0 +1,212 @@
+﻿@using Microsoft.Extensions.Localization
+@using PenielSite2.Localize
+
+@inject IStringLocalizer<Resource> _loc
+
+@model HomeModel
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .row-margin-05 {
+        margin-top: 0.5em;
+    }
+
+    .row-margin-10 {
+        margin-top: 1.0em;
+    }
+</style>
+
+<div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active" data-interval="4000">
+            <img src="img/Kursi_slope.png" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item" data-interval="4000">
+            <img src="img/Arbel.png" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item" data-interval="4000">
+            <img src="img/boat.png" class="d-block w-100" alt="...">
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+<br />
+<H6 class="@(Model.lang == "he" ? "float-right" : "")">
+    <i>@_loc["Here a list of the last seven messages, if you want to see all messages available"]</i>
+    <a href="@(Url.Action("Sermons","Home",new { lang = Model.lang}))" target="_blank"><strong><u><i>@_loc["click here"].</i></u></strong></a>
+</H6>
+
+<table id="table_id" class="display">
+    <thead>
+        <tr>
+            <th>@_loc["Title"]</th>
+            <th>@_loc["Group"]</th>
+            <th>@_loc["Date"]</th>
+            <th>@_loc["Speaker"]</th>
+            <th>@_loc["Video"]</th>
+        </tr>
+    </thead>
+</table>
+<br />
+
+
+<!--Buch Daniel Yahav-->
+@if (Model.lang == "de")
+{
+    <H6><i>Buchvorstellung:</i></H6>
+    <div style="background: #dfefff">
+        <div class="image-wrapper float-left p-3">
+            <img src="\img\Daniel_Buch.png" class="img-fluid" />
+        </div>
+        <H3 align="center">UND ER WIRD DAS HERZ DER VÄTER WIEDER ZU DEN SÖHNEN WENDEN</H3>
+        <p align="center">von Daniel Yahav</p>
+        <p>
+            Dieses Buch beschreibt die spannende Lebensgeschichte meines Vaters, wie ich sie aus seinem Munde erfahren habe.
+            Eine Lebensgeschichte, an die später meine eigene anknüpfen sollte. Diese Geschichte erstreckt sich über den Zeitraum
+            vom neunzehnten bis zum einundzwanzigsten Jahrhundert. Unsere Beziehung war komplex und kannte Höhen und Tiefen,
+            bis es zwischen uns zum großen Bruch kam. Es ist die Geschichte einer Person und zugleich eines ganzen Volkes;
+            sie verkörpert in sich die Erfüllung der Prophezeiung des Propheten Hesekiel von den vertrockneten Totengebeinen,
+            welche vor etwa 2500 Jahren ausgesprochen wurde und sich in unseren Tagen in zunehmendem Maße erfüllt.
+        </p>
+        <div class="image-wrapper float-right p-3">
+            <img src="\img\David_und_Lotti.png" class="img-fluid" />
+        </div>
+        <h4><strong>Dieses Buch ist hier erhältlich:</strong></h4>
+        <p>
+
+            Ev. Buchhandlung "Fischladen"<br />
+            Schulstraße 5<br />
+            09661 Rossau<br />
+            Telefon: 03727 2701<br />
+            Telefax: 03727 92623<br />
+            E-Mail: kontakt@buchhandlung-fischladen.de
+        </p>
+        <p>
+            Daniel Yahav ist jüdischer Israeli und ein Nachfolger Jeschuas. Er wurde 1959 als Sohn eines Holocaust-Überlebenden in Jaffa,
+            Israel geboren. Er ist Major in der israelischen Armee und war elf Jahre als Geschäftsmann tätig. Er begann als ein einfacher
+            Fabrikarbeiter und wurde vier Jahre später, im Alter von 26 Jahren, leitender Geschäftsführer von Galtronics Ltd.
+            Durch Gottes Gnade erlebte er in den folgenden sieben Jahren den Aufstieg der Firma von der drohenden Zahlungsunfähigkeit
+            zu einem florierenden Unternehmen, das zum Weltmarktführer in seiner Sparte wurde und 1991 den Kaplan-Preis der israelischen
+            Regierung erhielt. Er ist Vater von sieben Kindern und bis heute zwölf Enkeln. Seit siebenunddreißig Jahren dient Daniel
+            als Ältester und Pastor der Pniel Gemeinde in Tiberias am See Genezareth in Israel.
+        </p>
+    </div>
+}
+
+<!--Biblical Feasts-->
+@if (Model.lang == "en")
+{
+    <H6><i>Biblical Feasts</i></H6>
+    <div class="bg-light">
+        @foreach (var sermon in Model.sermons)
+        {
+
+            if ((sermon.row_num % 4) == 1)
+            {
+                @Html.Raw("<div class=\"row row-margin-10\">");
+            }
+            <div class="col-sm-3">
+                <!-- Card -->
+                <div class="card h-100">
+
+                    <!-- Card image -->
+                    <img class="card-img-top" src="@(sermon.img)" alt="Card image cap">
+
+                    <!-- Card content -->
+                    <div class="card-body">
+
+                        <!-- Title -->
+                        <h5 class="card-title"><a>@(sermon.title)</a></h5>
+                      <!-- Text -->
+                        
+                        <p class="card-text">
+                        
+                        </p>
+                        
+                        <!-- Button -->
+                        <a href="@(Url.Action("Video","Home",new { sermonId = sermon.sermonId, lang = sermon.language}))" class="btn btn-primary">@_loc["See"]</a>
+
+                    </div>
+
+                </div>
+                <!-- Card -->
+            </div>
+            if (@sermon.row_num % 4 == 0)
+            {
+                @Html.Raw("</div>");
+            }
+        }
+    </div>
+}
+
+<link rel="stylesheet" type="text/css" href="~/lib/datatables/css/jquery.dataTables.min.css">
+<script type="text/javascript" charset="utf8" src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="~/js/moment.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            'url': '/Home/getLastMessages',
+            'method': "GET",
+            'contentType': 'application/json',
+            data: {
+                    'lang' : '@Model.lang'
+                }
+        }).done(function (data) {
+            // data = { "data": data };
+            $('#table_id').dataTable({
+                searching: false, paging: false, info: false,
+                "aaData": data,
+                "columns": [
+                    { "data": "t" },
+                    { "data": "g" },
+                    {
+                      "data": "sd",
+                       render: function (data, type, row) {
+                          if (type === "sort" || type === "type") {
+                            return data;
+                          }
+                        //return moment(data).format("MM-DD-YYYY HH:mm");
+                           switch ('@Model.lang') {
+                               case 'en': return moment(data).format("MM-DD-YYYY");
+                                   break;
+                               case 'he':
+                               case 'ru':
+                               case 'es':
+                               case 'de': return moment(data).format("DD-MM-YYYY");
+                                   break;
+                               default: return moment(data).format("DD-MM-YYYY");
+                           }
+                       }
+                    },
+                    { "data": "sn" },
+                    {
+                        "data": "sid",
+                        "render": function (data, type, full) {
+                            var aa = '<a class="btn btn-info btn-sm" href="@(Url.Action("Video","Home",new { sermonId = "__data__", lang = Model.lang}))">' + '@_loc["View"]' + '</a>';
+                            return aa.replace('__data__', data);
+                        }
+                    }
+                ],
+                "order": [[2, "desc"]]
+            })
+
+            if ('@Model.lang' == 'he') {
+                $('#table_id td').css('text-align', 'right');
+                $('#table_id th').css('text-align', 'right');
+            }
+
+        })
+    });
+</script>

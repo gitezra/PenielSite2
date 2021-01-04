@@ -52,6 +52,7 @@ namespace PenielSite2.Controllers
             if (lang == null) lang = "en";
             HomeModel h = new HomeModel();
             h.action = "Video";
+            h.lang = lang;
 
             h.sermonId = sermonId;
             //get the sermon in the correct language if available
@@ -162,9 +163,10 @@ namespace PenielSite2.Controllers
         {
             HomeModel h = new HomeModel();
             h.action = "Article";
+            h.sermonId = sermonId;
 
             //get article title, Speakername and reading_html from the datatabase
-            string connectionString = _config.GetConnectionString("DefaultSQLConnection");
+            string connectionString = _config.GetConnectionString("DefaultConnection");
             string cmdString = "exec getArticle @sermonId,@language";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -196,7 +198,7 @@ namespace PenielSite2.Controllers
         public List<SermonModel> getArticles(string lang)
         {
             if (lang == null) lang = "en";
-            string connectionString = _config.GetConnectionString("DefaultSQLConnection");
+            string connectionString = _config.GetConnectionString("DefaultConnection");
             string cmdString = "exec getSermons @lang,@groupId,@sermonType,@fromDate,@toDate";
 
             List<SermonModel> lst = new List<SermonModel>();
@@ -242,7 +244,7 @@ namespace PenielSite2.Controllers
         public List<FileModel> getSermonFiles(int sermonId, string lang)
         {
             if (lang == null) lang = "en";
-            string connectionString = _config.GetConnectionString("DefaultSQLConnection");
+            string connectionString = _config.GetConnectionString("DefaultConnection");
             string cmdString = "exec getSermonFiles @sermonId, @lang";
 
             List<FileModel> lst = new List<FileModel>();
@@ -275,7 +277,7 @@ namespace PenielSite2.Controllers
         [HttpGet]
         public List<SermonModel> getPlayList(int playListID, string lang)
         {
-            string connectionString = _config.GetConnectionString("DefaultSQLConnection");
+            string connectionString = _config.GetConnectionString("DefaultConnection");
             string cmdString = "exec getPlayList @playListID, @lang";
 
             List<SermonModel> lst = new List<SermonModel>();
@@ -318,7 +320,7 @@ namespace PenielSite2.Controllers
 
         public string getVideoIdOfLanguage(int sermonId, string lang)
         {
-            string connectionString = _config.GetConnectionString("DefaultSQLConnection");
+            string connectionString = _config.GetConnectionString("DefaultConnection");
             string cmdString = "select dbo.getVideoIdOfLanguage(@sermonId, @lang)";
             string videoIdOfLanguage;
 
@@ -338,7 +340,7 @@ namespace PenielSite2.Controllers
         public List<SermonModel> getAllSermonsInGroupsOfaSermon(int sermonId, string lang)
         {
             if (lang == null) lang = "en";
-            string connectionString = _config.GetConnectionString("DefaultSQLConnection");
+            string connectionString = _config.GetConnectionString("DefaultConnection");
             string cmdString = "exec getAllSermonsInGroupsOfaSermon @sermonId, @lang, @sermonType";
 
             List<SermonModel> lst = new List<SermonModel>();
@@ -382,7 +384,7 @@ namespace PenielSite2.Controllers
         public IActionResult getLastMessages(string lang)
         {
             if (lang == null) lang = "en";
-            string connectionString = _config.GetConnectionString("DefaultSQLConnection");
+            string connectionString = _config.GetConnectionString("DefaultConnection");
             string cmdString = "exec getLastMessages @lang";
 
             List<SermonModel> lst = new List<SermonModel>();
@@ -430,7 +432,7 @@ namespace PenielSite2.Controllers
         public IActionResult getSermons(string lang, int groupId, string sermonType, string fromDate, string toDate )
         {
             if (lang == null) lang = "en";
-            string connectionString = _config.GetConnectionString("DefaultSQLConnection");
+            string connectionString = _config.GetConnectionString("DefaultConnection");
             string cmdString = "exec getSermons @lang,@groupId,@sermonType,@fromDate,@toDate";
 
             List<SermonModel> lst = new List<SermonModel>();

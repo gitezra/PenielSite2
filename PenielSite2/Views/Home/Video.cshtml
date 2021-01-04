@@ -5,18 +5,22 @@
 
 @model HomeModel
 @{
-    ViewData["Title"] = "Play Video";
+    ViewData["Title"] = "Play Video or Audio";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<link href="/lib/fontAwesome/css/all.min.css" rel="stylesheet">
+
 <!--https://embedsocial.com/knowledge-base/embed-youtube-feed/-->
+<!--https://www.joydeepdeb.com/misc/font-awesome-5.html-->
 
 <div class="row">
     <div class="col">
     </div>
     <div class="col">
-        @if (Model.videoId == null)
+        @if (Model.videoId == null || Model.videoId == "")
         {
-            <p>This video is not available in this language</p>
+            <p>No video available for this sermon in this language</p>
         }
         else
         {
@@ -31,24 +35,30 @@
 
     </div>
 </div>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col"> </th>
-            <th style="text-align: center; width: 75%;" scope="col">File Name</th>
-            <th style="text-align: center;" scope="col">Play</th>
-            <th scope="col"> </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var file in Model.files)
-        {
+@if (Model.files.Count > 0)
+{
+    <table class="table table-striped text-white" style="text-align:@(Model.lang=="he" ? "right" : "left")">
+        <thead>
             <tr>
-                <th scope="row"></th>
-                <td>@file.title</td>
-                <td><a href="..\@file.mp3File">.mp3</a></td>
+                <th scope="col"> </th>
+                <th style="width: 75%;" scope="col">@_loc["Title"]</th>
+                <th scope="col">@_loc["Play"]</th>
+                <th scope="col">mp3</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var file in Model.files)
+            {
+                <tr>
+                    <th scope="row"></th>
+                    <td>@file.title</td>
+                    <td><audio id="player" style="margin-top:1px;margin-bottom:1px" controls>
+                        <source src="..\@file.mp3File" type="audio/mpeg">
+                        </audio></td>
+                    <td align="center"><a href="..\@file.mp3File" download><i class="fas fa-download fa-lg"></i></a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 

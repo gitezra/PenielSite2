@@ -171,6 +171,9 @@
   <data name="Peniel Fellowship" xml:space="preserve">
     <value>קהילת פניאל</value>
   </data>
+  <data name="Play" xml:space="preserve">
+    <value>נגן</value>
+  </data>
   <data name="Read" xml:space="preserve">
     <value>קרא</value>
   </data>

@@ -3,7 +3,15 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>aspnet-PenielSite2-B271E70F-C5A4-4A88-8C64-24C393A24C06</UserSecretsId>
+	<ExcludeFoldersFromDeployment>mp3</ExcludeFoldersFromDeployment>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\mp3\**" />
+    <Content Remove="wwwroot\mp3\**" />
+    <EmbeddedResource Remove="wwwroot\mp3\**" />
+    <None Remove="wwwroot\mp3\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.9" />

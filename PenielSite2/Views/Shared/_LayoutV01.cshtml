@@ -1,0 +1,119 @@
+﻿@using Microsoft.Extensions.Localization
+@using PenielSite2.Localize
+@using System.Globalization
+
+@inject IStringLocalizer<Resource> _loc
+
+<!DOCTYPE html>
+
+<style>
+    p, H1, H2, H3, H4,h5,H6 {
+        color: #04528e
+    }
+    body {
+        padding-top: 62px; /*fixed-top nav needs this space*/
+
+        
+        background-image: url("/img/peniel_background_2.png");
+        background-position: center center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        
+    } 
+
+</style>
+
+<html lang="en" dir="@((CultureInfo.CurrentUICulture.ToString() == "he") ? "rtl" : "ltr")">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Peniel Site</title>
+
+    <!--https://libraries.io/npm/bootstrap-right-to-left-->
+    <!--https://libraries.io/npm/bootstrap-right-to-left#bootstrap-rtl-v431-->
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!--<link rel="stylesheet" href="~/lib/bootstrap-rtl/dist/css/bootstrap-rtl.min.css" />-->
+
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 fixed-top">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/peniel_icon.jpg" width="30" height="30" class="rounded-circle" alt="" loading="lazy">
+                    <!--@_loc["Peniel Fellowship"]-->
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <partial name="_LoginPartial" />
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index" asp-route-lang="@CultureInfo.CurrentUICulture">@_loc["Home"]</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Sermons" asp-route-lang="@CultureInfo.CurrentUICulture">@_loc["Sermons"]</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Articles" asp-route-lang="@CultureInfo.CurrentUICulture">@_loc["Articles"]</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact" asp-route-lang="@CultureInfo.CurrentUICulture">@_loc["Contact"]</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Donate" asp-route-lang="@CultureInfo.CurrentUICulture">@_loc["Donate"]</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About" asp-route-lang="@CultureInfo.CurrentUICulture">@_loc["About"]</a>
+                        </li>
+                        @if (Model.GetType() == typeof(HomeModel) || Model.GetType() == typeof(ContactFormModel))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                   asp-controller="Home" asp-action="@Model.action" asp-route-sermonId="@Model.sermonId" asp-route-lang="@CultureInfo.CurrentUICulture">
+                                    <img src="~/img/@(CultureInfo.CurrentUICulture).jpg" alt="..." width="25">
+                                </a>
+                                <div class="dropdown-menu" style="min-width:inherit;" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" asp-controller="Home" asp-action="@Model.action" asp-route-sermonId="@Model.sermonId" asp-route-lang="en"><img src="~/img/en.jpg" alt="..." width="25"></a>
+                                    <a class="dropdown-item" asp-controller="Home" asp-action="@Model.action" asp-route-sermonId="@Model.sermonId" asp-route-lang="he"><img src="~/img/he.jpg" alt="..." width="25"></a>
+                                    <a class="dropdown-item" asp-controller="Home" asp-action="@Model.action" asp-route-sermonId="@Model.sermonId" asp-route-lang="ru"><img src="~/img/ru.jpg" alt="..." width="25"></a>
+                                    <a class="dropdown-item" asp-controller="Home" asp-action="@Model.action" asp-route-sermonId="@Model.sermonId" asp-route-lang="de"><img src="~/img/de.jpg" alt="..." width="25"></a>
+                                    <a class="dropdown-item" asp-controller="Home" asp-action="@Model.action" asp-route-sermonId="@Model.sermonId" asp-route-lang="es"><img src="~/img/es.jpg" alt="..." width="25"></a>
+                                    <a class="dropdown-item" asp-controller="Home" asp-action="@Model.action" asp-route-sermonId="@Model.sermonId" asp-route-lang="fi"><img src="~/img/fi.jpg" alt="..." width="25"></a>
+                                    <a class="dropdown-item" asp-controller="Home" asp-action="@Model.action" asp-route-sermonId="@Model.sermonId" asp-route-lang="fr"><img src="~/img/fr.jpg" alt="..." width="25"></a>
+                                    <a class="dropdown-item" asp-controller="Home" asp-action="@Model.action" asp-route-sermonId="@Model.sermonId" asp-route-lang="zh"><img src="~/img/zh.jpg" alt="..." width="25"></a>
+                                    <a class="dropdown-item" asp-controller="Home" asp-action="@Model.action" asp-route-sermonId="@Model.sermonId" asp-route-lang="it"><img src="~/img/it.jpg" alt="..." width="25"></a>
+                                    <a class="dropdown-item" asp-controller="Home" asp-action="@Model.action" asp-route-sermonId="@Model.sermonId" asp-route-lang="pt"><img src="~/img/pt.jpg" alt="..." width="25"></a>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2020 - PenielSite - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

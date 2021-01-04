@@ -9,7 +9,27 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
 <style>
+
+    .h-divider {
+        margin-top: 20px;
+        margin-bottom: 5px;
+        height: 1px;
+        width: 100%;
+        border-top: 1px solid white;
+    }
+
+    .Aclonica {
+        font-family: 'Aclonica';
+        font-size: 22px;
+    }
+
+    .AclonicaSm {
+        font-family: 'Aclonica';
+        font-size: 15px;
+    }
+
     .row-margin-05 {
         margin-top: 0.5em;
     }
@@ -17,39 +37,44 @@
     .row-margin-10 {
         margin-top: 1.0em;
     }
+
+    img.rounded-corners {
+        border-radius: 5px;
+        border: 3px solid #ffffff;
+    }
 </style>
 
-<div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
-    <div class="carousel-inner">
-        <div class="carousel-item active" data-interval="4000">
-            <img src="img/Kursi_slope.png" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item" data-interval="4000">
-            <img src="img/Arbel.png" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item" data-interval="4000">
-            <img src="img/boat.png" class="d-block w-100" alt="...">
-        </div>
+@if (Model.action == "Index")
+{
+    <br />
+    <div class="row">
+        <div class="col-sm" align="center"><a asp-controller="Home" asp-action="@Model.action" asp-route-sermonId="@Model.sermonId" asp-route-lang="he"><img src="~/img/he.jpg" alt="he" class="rounded-corners" width="70" height="45"></a></div>
+        <div class="col-sm" align="center"><a asp-controller="Home" asp-action="@Model.action" asp-route-sermonId="@Model.sermonId" asp-route-lang="en"><img src="~/img/en.jpg" alt="en" class="rounded-corners" width="70" height="45"></a></div>
+        <div class="col-sm" align="center"><a asp-controller="Home" asp-action="@Model.action" asp-route-sermonId="@Model.sermonId" asp-route-lang="ru"><img src="~/img/ru.jpg" alt="ru" class="rounded-corners" width="70" height="45"></a></div>
+        <div class="col-sm" align="center"><a asp-controller="Home" asp-action="@Model.action" asp-route-sermonId="@Model.sermonId" asp-route-lang="de"><img src="~/img/de.jpg" alt="de" class="rounded-corners" width="70" height="45"></a></div>
+        <div class="col-sm" align="center"><a asp-controller="Home" asp-action="@Model.action" asp-route-sermonId="@Model.sermonId" asp-route-lang="es"><img src="~/img/es.jpg" alt="es" class="rounded-corners" width="70" height="45"></a></div>
+        <div class="col-sm" align="center"><a asp-controller="Home" asp-action="@Model.action" asp-route-sermonId="@Model.sermonId" asp-route-lang="fi"><img src="~/img/fi.jpg" alt="fi" class="rounded-corners" width="70" height="45"></a></div>
+        <div class="col-sm" align="center"><a asp-controller="Home" asp-action="@Model.action" asp-route-sermonId="@Model.sermonId" asp-route-lang="fr"><img src="~/img/fr.jpg" alt="fr" class="rounded-corners" width="70" height="45"></a></div>
+        <div class="col-sm" align="center"><a asp-controller="Home" asp-action="@Model.action" asp-route-sermonId="@Model.sermonId" asp-route-lang="zh"><img src="~/img/zh.jpg" alt="zh" class="rounded-corners" width="70" height="45"></a></div>
+        <div class="col-sm" align="center"><a asp-controller="Home" asp-action="@Model.action" asp-route-sermonId="@Model.sermonId" asp-route-lang="it"><img src="~/img/it.jpg" alt="it" class="rounded-corners" width="70" height="45"></a></div>
+        <div class="col-sm" align="center"><a asp-controller="Home" asp-action="@Model.action" asp-route-sermonId="@Model.sermonId" asp-route-lang="pt"><img src="~/img/pt.jpg" alt="pt" class="rounded-corners" width="70" height="45"></a></div>
     </div>
-    <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
-</div>
+}
 
-<br />
-<H6 class="@(Model.lang == "he" ? "float-right" : "")">
+<div class="h-divider"></div>
+
+<partial name="WelcomePartial" />
+
+<div class="h-divider"></div>
+
+<H6 class="@(Model.lang == "he" ? "float-right" : "") text-white">
     <i>@_loc["Here a list of the last seven messages, if you want to see all messages available"]</i>
-    <a href="@(Url.Action("Sermons","Home",new { lang = Model.lang}))" target="_blank"><strong><u><i>@_loc["click here"].</i></u></strong></a>
+    <a href="@(Url.Action("Sermons","Home",new { lang = Model.lang}))" target="_blank"><strong><u><i class="text-white">@_loc["click here"].</i></u></strong></a>
 </H6>
 
 <table id="table_id" class="display">
     <thead>
-        <tr>
+        <tr class="text-white">
             <th>@_loc["Title"]</th>
             <th>@_loc["Group"]</th>
             <th>@_loc["Date"]</th>
@@ -64,8 +89,8 @@
 <!--Buch Daniel Yahav-->
 @if (Model.lang == "de")
 {
-    <H6><i>Buchvorstellung:</i></H6>
-    <div style="background: #dfefff">
+    <H6 class="text-white"><i>Buchvorstellung:</i></H6>
+    <div style="background: #dfefff" class="p-3">
         <div class="image-wrapper float-left p-3">
             <img src="\img\Daniel_Buch.png" class="img-fluid" />
         </div>
@@ -107,8 +132,8 @@
 <!--Biblical Feasts-->
 @if (Model.lang == "en")
 {
-    <H6><i>Biblical Feasts</i></H6>
-    <div class="bg-light">
+    <H6 class="text-white"><strong><i>Biblical Feasts</i></strong></H6>
+    <div>
         @foreach (var sermon in Model.sermons)
         {
 
@@ -128,12 +153,12 @@
 
                         <!-- Title -->
                         <h5 class="card-title"><a>@(sermon.title)</a></h5>
-                      <!-- Text -->
-                        
+                        <!-- Text -->
+
                         <p class="card-text">
-                        
+
                         </p>
-                        
+
                         <!-- Button -->
                         <a href="@(Url.Action("Video","Home",new { sermonId = sermon.sermonId, lang = sermon.language}))" class="btn btn-primary">@_loc["See"]</a>
 
