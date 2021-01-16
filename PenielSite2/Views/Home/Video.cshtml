@@ -14,33 +14,28 @@
 <!--https://embedsocial.com/knowledge-base/embed-youtube-feed/-->
 <!--https://www.joydeepdeb.com/misc/font-awesome-5.html-->
 
-<div class="row">
-    <div class="col">
-    </div>
-    <div class="col">
-        @if (Model.videoId == null || Model.videoId == "")
-        {
-            <p>No video available for this sermon in this language</p>
-        }
-        else
-        {
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/@Model.videoId?rel=0"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    @if (Model.videoId == null || Model.videoId == "")
+    {
+        <p>No video available for this sermon in this language</p>
+    }
+    else
+    {
+        <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/@Model.videoId?rel=0" 
+                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen>
             </iframe>
-        }
-    </div>
-    <div class="col">
+        </div>
+    }
 
-    </div>
-</div>
+<!--<p id="screenSize"></p>-->
+
 @if (Model.files.Count > 0)
 {
     <table class="table table-striped text-white" style="text-align:@(Model.lang=="he" ? "right" : "left")">
         <thead>
             <tr>
-                <th scope="col"> </th>
+                <!--<th scope="col"> </th>-->
                 <th style="width: 75%;" scope="col">@_loc["Title"]</th>
                 <th scope="col">@_loc["Play"]</th>
                 <th scope="col">mp3</th>
@@ -50,15 +45,41 @@
             @foreach (var file in Model.files)
             {
                 <tr>
-                    <th scope="row"></th>
+                    <!--<th scope="row"></th>-->
                     <td>@file.title</td>
                     <td><audio id="player" style="margin-top:1px;margin-bottom:1px" controls>
                         <source src="..\@file.mp3File" type="audio/mpeg">
-                        </audio></td>
+                        </audio>
+                    </td>
                     <td align="center"><a href="..\@file.mp3File" download><i class="fas fa-download fa-lg"></i></a></td>
                 </tr>
             }
         </tbody>
     </table>
 }
+
+<script>
+
+    function toggleAudio() {
+        var width = $(window).width();
+
+        if (width < 546) {
+            $('td:nth-child(2),th:nth-child(2)').hide();
+        }
+        else {
+            $('td:nth-child(2),th:nth-child(2)').show();
+        }
+    }
+
+    $(document).ready(function () {
+        //hiding the audio player when screen width smaller than 546 pixels
+        toggleAudio();
+
+        $(window).on('resize orientationchange', function () {
+            toggleAudio();
+        });
+
+    });
+
+</script>
 

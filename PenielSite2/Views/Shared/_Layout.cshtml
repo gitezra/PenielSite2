@@ -6,18 +6,28 @@
 
 <!DOCTYPE html>
 
-@if (Model.action != "Sermons")
+@if (Model.action != "Sermons11")
 {
     <style>
 
         body {
             padding-top: 62px; /*fixed-top nav needs this space*/
             /*The background picture*/
-            background-image: url("/img/peniel_background.jpg");
+            /*background-image: url("/img/peniel_background.jpg");
             background-position: center center;
             background-size: cover;
             background-repeat: no-repeat;
-            background-attachment: fixed;
+            background-attachment: fixed;*/
+            /*min-height: 100vh;
+            min-width: 100vw;*/
+        }
+
+        .page-holder {
+            min-height: 100vh;
+        }
+
+        .bg-cover {
+            background-size: cover !important;
         }
 
         .bg-blue {
@@ -34,6 +44,15 @@ else
             padding-top: 62px; /*fixed-top nav needs this space*/
             background-color: lightblue;
         }
+        
+        .page-holder {
+            min-height: 100vh;
+        }
+
+        .bg-cover {
+            background-size: cover !important;
+        }
+
         .bg-blue {
             background-color = #3A648F;
         }
@@ -60,37 +79,39 @@ else
 </head>
 
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-primary border-bottom box-shadow mb-3 fixed-top">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="~/peniel_icon.jpg" width="30" height="30" class="rounded-circle" alt="" loading="lazy">
-                    <!--@_loc["Peniel Fellowship"]-->
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index" asp-route-lang="@CultureInfo.CurrentUICulture">@_loc["Home"]</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Sermons" asp-route-lang="@CultureInfo.CurrentUICulture">@_loc["Sermons"]</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Articles" asp-route-lang="@CultureInfo.CurrentUICulture">@_loc["Articles"]</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Contact" asp-route-lang="@CultureInfo.CurrentUICulture">@_loc["Contact"]</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Donate" asp-route-lang="@CultureInfo.CurrentUICulture">@_loc["Donate"]</a>
-                        </li>
-                        
-                        @if (Model.GetType() == typeof(HomeModel) || Model.GetType() == typeof(ContactFormModel))
+    <div style="background: url(/img/peniel_background.jpg)" class="page-holder bg-cover">
+
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-primary border-bottom box-shadow mb-3 fixed-top">
+                <div class="container">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                        <img src="~/peniel_icon.jpg" width="30" height="30" class="rounded-circle" alt="" loading="lazy">
+                        <!--@_loc["Peniel Fellowship"]-->
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <partial name="_LoginPartial" />
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index" asp-route-lang="@CultureInfo.CurrentUICulture">@_loc["Home"]</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Sermons" asp-route-lang="@CultureInfo.CurrentUICulture">@_loc["Sermons"]</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Articles" asp-route-lang="@CultureInfo.CurrentUICulture">@_loc["Articles"]</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Contact" asp-route-lang="@CultureInfo.CurrentUICulture">@_loc["Contact"]</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Donate" asp-route-lang="@CultureInfo.CurrentUICulture">@_loc["Donate"]</a>
+                            </li>
+
+                            @if (Model.GetType() == typeof(HomeModel) || Model.GetType() == typeof(ContactFormModel))
                         {
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
@@ -112,23 +133,24 @@ else
                                 </div>
                             </li>
                         }
-                    </ul>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
-    </header>
+            </nav>
+        </header>
 
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2020 - PenielSite - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
         </div>
-    </footer>
-    @RenderSection("Scripts", required: false)
+
+        <footer class="border-top footer text-muted">
+            <div class="container">
+                &copy; 2020 - PenielSite - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>
+        @RenderSection("Scripts", required: false)
+    </div>
 </body>
 </html>

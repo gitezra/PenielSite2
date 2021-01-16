@@ -37,13 +37,12 @@
     }
         */
 
+    .dataTables_wrapper {
+        background-color: white !important;
+    }
 </style>
 
-<div>
-    <img src="..\img\golan_sunset.png" class="img-fluid" />
-</div>
-
-<table id="table_id" class="display">
+<table id="table_id" class="display bg-light">
     <thead>
         <tr>
             <th>@_loc["Title"]</th>
@@ -64,10 +63,18 @@
     </tfoot>
 </table>
 
-<link rel="stylesheet" type="text/css" href="~/lib/datatables/css/jquery.dataTables.min.css">
-<script type="text/javascript" charset="utf8" src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+<!--standard databale-->
+<!--<link rel="stylesheet" type="text/css" href="~/lib/datatables/css/jquery.dataTables.min.css">
+<script type="text/javascript" charset="utf8" src="~/lib/datatables/js/jquery.dataTables.min.js"></script>-->
+
+<!--with bootstrap-->
 <!--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.23/datatables.min.css" />-->
 <!--<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.23/datatables.min.js"></script>-->
+
+<!--with responsive extension-->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.23/r-2.2.7/datatables.min.css" />
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/r-2.2.7/datatables.min.js"></script>
+
 <script type="text/javascript" src="~/js/moment.js"></script>
 
 <script>
@@ -193,6 +200,14 @@
                             return aa.replace('__data__', data);
                         }
                     }
+                ],
+                responsive: true,
+                columnDefs: [
+                    { responsivePriority: 1, targets: 0 },
+                    { responsivePriority: 3, targets: 1 },
+                    { responsivePriority: 2, targets: 2 },
+                    { responsivePriority: 4, targets: 3 },
+                    { responsivePriority: 1, targets: 4 }
                 ],
                 pageLength: 25,
                 lengthMenu: [[10, 25, 50, 100, 200], [10, 25, 50, 100, 200]],
